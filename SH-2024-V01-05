@@ -1,6 +1,72 @@
-#A Python Program on Electron Concentration in terms of Effective Density of States in Conduction Band
-#ID: SH-2024-V01-04
+#A Python Program on Effective Density of States in Conduction Band
+#ID: SH-2024-V01-05
 #Contributors: Soham Chowdhury, Deepjyoti Deb, Rupam Goswami
 #Affiliation: TSDL, Department of Electronics and Communication Engineering, Tezpur University
 #This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International   
+
+#In 3D
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D  # Import Axes3D module
+
+#Constants
+h = 4.136e-15    #Planck constant (eV*s)
+k_B = 8.617e-5   #Boltzmann constant (eV/K)
+
+#Function to calculate carrier concentration
+def carrier_concentration(m_n, T):
+    return 2 * ((2 * np.pi * m_n * k_B * T) / h ** 2) ** (3 / 2)
+
+#Range of effective masses and temperatures
+m_n_values = np.linspace(0.01, 1, 100)  
+T_values = np.linspace(100, 1000, 100)  
+
+#Create meshgrid for m_n and T
+m_n_mesh, T_mesh = np.meshgrid(m_n_values, T_values)
+
+#Calculate carrier concentration
+n_mesh = carrier_concentration(m_n_mesh, T_mesh)
+
+#Plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')  # Create a 3D subplot
+surf = ax.plot_surface(m_n_mesh, T_mesh, n_mesh, cmap='viridis', linewidth=0, antialiased=False)
+ax.set_xlabel('$m_n$')
+ax.set_ylabel('Temperature (K)')
+ax.set_zlabel('Carrier Conc ($n$)', labelpad=25)	
+ax.set_title('Carrier Concentration vs $m_n$ and Temperature')
+fig.colorbar(surf, shrink=0.5, aspect=5)
+plt.show()
+
+Nc vs m_n (T=300K)
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Constants
+h =  4.136e-15    #Planck constant (eV*s)
+k_B = 8.617e-5   #Boltzmann constant (eV/K)
+#Function to calculate effective density of states in the conduction band
+def Nc(m_n, T):
+    return 2 * ((2 * np.pi * m_n * k_B * T) / h ** 2) ** (3 / 2)
+
+#Range of effective masses
+m_n_values = np.linspace(0.01, 1, 100)  # Effective mass range 
+
+#Temperature (K)
+T = 300  
+
+#Calculate Nc for each value of m_n
+Nc_values = Nc(m_n_values, T)
+
+#Plot Nc vs m_n
+plt.plot(m_n_values, Nc_values)
+plt.xlabel('Effective Mass of Electrons ($m_n$)')
+plt.ylabel('Effective Density of States ($N_c$)')
+plt.title('Effective Density of States in the Conduction Band vs Effective Mass of Electrons')
+plt.grid(True)
+plt.show()
+
+
+
 
