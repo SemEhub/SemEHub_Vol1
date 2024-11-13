@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Constants
+Nc = 1e19  
+k_B = 8.617333262145e-5  
+T = 300 
+
+#Function to calculate carrier concentration
+def carrier_concentration(Ec_minus_EF):
+    return Nc * np.exp(-Ec_minus_EF / (k_B * T))
+
+#Energy difference range
+Ec_minus_EF = np.linspace(0, 1, 100)  # Energy difference range from 0 to 1 eV
+
+#Calculate carrier concentration
+n = carrier_concentration(Ec_minus_EF)
+
+#Plot
+plt.plot(Ec_minus_EF, n)
+plt.xlabel('Energy Difference ($E_c - E_F$) (eV)')
+plt.ylabel('Carrier Concentration ($n$)')
+plt.title('Carrier Concentration vs Energy Difference')
+plt.grid(True)
+plt.show()
