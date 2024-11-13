@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+pi = np.pi
+h = 4.136e-15  
+m_n = 9.10938356e-31 
+Ec = 1.0  
+
+# Energy range
+E = np.linspace(Ec, 2*Ec, 1000)  # Energy range for E >= Ec
+
+# Density of states function for E >= Ec
+def density_of_states(E):
+    numerator = 8 * pi * (2*m_n)**(3/2)
+    denominator = h**3
+    return (numerator / denominator) * np.sqrt(E - Ec)
+
+# Calculate density of states
+DOS = density_of_states(E)
+
+# Plot the graph
+plt.plot(E, DOS, color='blue')
+plt.xlabel('Energy (eV)')
+plt.ylabel('Density of States (DOS)')
+plt.title('Density of States of a Semiconductor (E >= Ec)')
+plt.grid(True)
+plt.show()
