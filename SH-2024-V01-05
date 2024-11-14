@@ -38,7 +38,7 @@ ax.set_title('Carrier Concentration vs $m_n$ and Temperature')
 fig.colorbar(surf, shrink=0.5, aspect=5)
 plt.show()
 
-Nc vs m_n (T=300K)
+# Nc vs m_n (T=300K)
 
 import numpy as np
 import matplotlib.pyplot as plt
