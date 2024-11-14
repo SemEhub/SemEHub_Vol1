@@ -1,0 +1,57 @@
+#A Python Program to find the intrinsic carrier concentration
+#ID: SH-2024-V01-08
+#Contributors: Soham Chowdhury, Deepjyoti Deb, Rupam Goswami
+#Affiliation: TSDL, Department of Electronics and Communication Engineering, Tezpur University
+#This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
+
+#In 3D 
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+k = 8.617333262145e-5   # Boltzmann constant in eV/K
+N_c = 2.8e19  # Effective density of states in conduction band for silicon (in cm^-3)
+N_v = 1.04e19  # Effective density of states in valence band for silicon (in cm^-3)
+T_values = np.linspace(200, 1000, 100)  # Temperature range from 200 K to 1000 K
+Eg_values = np.linspace(0.5, 1.5, 100)  # Bandgap energy range from 0.5 eV to 1.5 eV
+T, E_g = np.meshgrid(T_values, Eg_values)
+n_i = np.sqrt(N_c * N_v) * np.exp(-E_g / (2 * k * T))
+
+# Plot
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
+# Plot surface
+surf = ax.plot_surface(T, E_g, n_i, cmap='viridis', edgecolor='none')
+ax.set_xlabel("Temperature (K)")
+ax.set_ylabel("Bandgap Energy $E_g$ (eV)")
+ax.set_zlabel("Intrinsic Carrier Concentration $n_i$ (cm⁻³)")
+ax.set_title("Intrinsic Carrier Concentration $n_i$ vs Temperature and Bandgap Energy")
+fig.colorbar(surf, ax=ax, label="$n_i$ (cm⁻³)", shrink=0.5, aspect=10)
+plt.show()
+
+#N_i vs E_g (T=300K)
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+k = 8.617333262145e-5  # Boltzmann constant in eV/K
+T = 300  # Temperature in Kelvin (constant)
+N_c = 2.8e19  # Effective density of states in conduction band for silicon (in cm^-3)
+N_v = 1.04e19  # Effective density of states in valence band for silicon (in cm^-3)
+
+# Range of bandgap energies (Eg) from 0.5 eV to 1.5 eV
+Eg_values = np.linspace(0.5, 1.5, 100)
+n_i_values = np.sqrt(N_c * N_v) * np.exp(-Eg_values / (2 * k * T))
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(Eg_values, n_i_values, color='blue', label=r'$T=300\ K$')
+plt.yscale("log")  # Logarithmic scale for n_i due to large range
+plt.xlabel("Bandgap Energy $E_g$ (eV)")
+plt.ylabel("Intrinsic Carrier Concentration $n_i$ (cm⁻³)")
+plt.title("Intrinsic Carrier Concentration $n_i$ vs Bandgap Energy $E_g$ at T = 300 K")
+plt.legend()
+plt.grid(True)
+plt.show()
