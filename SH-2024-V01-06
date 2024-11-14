@@ -1,0 +1,33 @@
+#A Python Program on Hole Concentration in terms of Effective Density of States in Valence Band 
+#ID: SH-2024-V01-06
+#Contributors: Soham Chowdhury, Deepjyoti Deb, Rupam Goswami
+#Affiliation: TSDL, Department of Electronics and Communication Engineering, Tezpur University
+#This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+k_B = 8.617e-5   #Boltzmann constant (eV/K)  
+T = 300  #Temperature (K)
+
+#Function to calculate hole concentration
+def hole_concentration(Nv, Ef_minus_Ev):
+    return Nv * np.exp(-Ef_minus_Ev / (k_B * T))
+
+#Range of Ef_minus_Ev values
+Ef_minus_Ev_values = np.linspace(-1, 1, 100)  #Adjust the range as needed
+
+#Effective density of states in the valence band 
+Nv = 1.0  # We can adjust the value as needed
+
+#Calculate hole concentration for each value of Ef_minus_Ev
+p_values = hole_concentration(Nv, Ef_minus_Ev_values)
+
+#Plot p vs (Ef-Ev)
+plt.plot(Ef_minus_Ev_values, p_values)
+plt.xlabel('$E_F - E_v$ (eV)')
+plt.ylabel('Hole Concentration ($p$)')
+plt.title('Hole Concentration vs $E_F - E_v$')
+plt.grid(True)
+plt.show()
