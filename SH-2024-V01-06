@@ -8,8 +8,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Constants
+Nv = 1e19        # We can adjust the value as needed
 k_B = 8.617e-5   #Boltzmann constant (eV/K)  
-T = 300  #Temperature (K)
+T = 300          #Temperature (K)
 
 #Function to calculate hole concentration
 def hole_concentration(Nv, Ef_minus_Ev):
@@ -17,9 +18,6 @@ def hole_concentration(Nv, Ef_minus_Ev):
 
 #Range of Ef_minus_Ev values
 Ef_minus_Ev_values = np.linspace(0, 1, 100)  #Adjust the range as needed
-
-#Effective density of states in the valence band 
-Nv = 1e19  # We can adjust the value as needed
 
 #Calculate hole concentration for each value of Ef_minus_Ev
 p_values = hole_concentration(Nv, Ef_minus_Ev_values)
