@@ -39,7 +39,7 @@ fig.colorbar(surf, ax=ax, label="$N_c$ (cm⁻³)", shrink=0.5, aspect=10)
 plt.show()
 
 #In 2D
-#N_v vs m_p (T=300K)
+#N_c vs m_p (T=300K)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,13 +58,13 @@ mn_values = np.linspace(0.5, 1.0, 100)  # Effective mass of holes as a fraction 
 
 # Calculate Nc using the given formula for each value of mp
 
-# Effective density of states Nv in cm^-3
+# Effective density of states Nc in cm^-3
 Nc = 2 * ((2 * np.pi * mn_values * m_e * k * T) /(q*h** 2)) ** (3 / 2)
 
 # Convert from m^-3 to cm^-3
 Nc = Nc * 1e-6  # Convert Nc to cm^-3 for the final values
 
-# Plot Nv vs mp
+# Plot Nc vs mp
 plt.figure(figsize=(10, 6))
 plt.plot(mn_values, Nc, color='b', label=r'$N_c$ at $T=300K$')
 plt.xlabel("Effective Mass of Electrons $m_n^* / m_e$")
