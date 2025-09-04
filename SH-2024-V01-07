@@ -62,7 +62,7 @@ h_bar = h / (2 * np.pi)  # Reduced Planck's constant in eV·s
 Nv = 2 * ((2 * np.pi * mp_values * m_e * k * T) / (h_bar ** 2)) ** (3 / 2)
 
 # Convert from m^-3 to cm^-3
-Nv = Nv * 1e-6  # Convert Nv to cm^-3 for the final values
+Nv = Nv * 1e19  # Convert Nv to cm^-3 for the final values
 
 # Plot Nv vs mp
 plt.figure(figsize=(10, 6))
