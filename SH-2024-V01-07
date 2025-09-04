@@ -2,29 +2,29 @@
 #ID: SH-2024-V01-07
 #Contributors: Soham Chowdhury, Deepjyoti Deb, Rupam Goswami
 #Affiliation: TSDL, Department of Electronics and Communication Engineering, Tezpur University
-#This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International 
+#This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International
 
 
-#In 3D 
+#In 3D
 
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# Constants 
+# Constants
 k = 8.617e-5  # Boltzmann constant (eV/K)
 h = 4.135e-15  # Planck's constant in (eV*s)
 m_e = 9.109e-31  # Mass of an electron (kg)
+q = 1.602e-19  # Elementary charge in Coulombs
 
 # Temperature and effective mass ranges
 T_values = np.linspace(200, 800, 100)  # Temperature range from 200 K to 800 K
-mp_values = np.linspace(0.5, 1.5, 100)  # Effective mass of holes (in units of electron mass)
+mp_values = np.linspace(0.01, 1.0, 100)  # Effective mass of holes (in units of electron mass)
 T, m_p = np.meshgrid(T_values, mp_values)
 
 # We use h-bar = h / (2 * pi) and apply correct scaling
-h_bar = h / (2 * np.pi)  # Reduced Planck's constant in eV*s
-Nv = 2 * ((2 * np.pi * m_p * m_e * k * T) / (h_bar ** 2)) ** (3 / 2)
-Nv = Nv * 1e19
+Nv = 2 * ((2 * np.pi * m_p * m_e * k * T) / (q*h ** 2)) ** (3 / 2)
+Nv = Nv * 1e-6
 
 # Plotting the results
 fig = plt.figure(figsize=(12, 8))
@@ -34,41 +34,41 @@ ax = fig.add_subplot(111, projection='3d')
 surf = ax.plot_surface(T, m_p, Nv, cmap='viridis', edgecolor='none')
 ax.set_xlabel("Temperature (K)")
 ax.set_ylabel("Effective Mass of Holes $m_p^* / m_e$")
-ax.set_zlabel("Effective Density of States $N_v$ (cm⁻³)")
+ax.set_zlabel("Effective DoS $N_v$ (cm⁻³)")
 ax.set_title("Effective Density of States $N_v$ vs Temperature and Effective Mass of Holes")
 fig.colorbar(surf, ax=ax, label="$N_v$ (cm⁻³)", shrink=0.5, aspect=10)
 plt.show()
 
-#N_v vs m_p (T=300K) 
+#In 2D
+#N_v vs m_p (T=300K)
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Constants 
+# Constants
 k = 8.617e-5  # Boltzmann constant in eV/K
 h = 4.135e-15  # Planck's constant in eV·s
 m_e = 9.109e-31  # Mass of an electron in kg
+q = 1.602e-19  # Elementary charge in Coulombs
 
 # Set temperature to a constant value of 300K
 T = 300  # Temperature in Kelvin
 
 # Define the range for effective mass of holes (in units of electron mass)
-mp_values = np.linspace(0.5, 1.5, 100)  # Effective mass of holes as a fraction of electron mass
+mp_values = np.linspace(0.01, 1.0, 100)  # Effective mass of holes as a fraction of electron mass
 
 # Calculate Nv using the given formula for each value of mp
-h_bar = h / (2 * np.pi)  # Reduced Planck's constant in eV·s
-
 # Effective density of states Nv in cm^-3
-Nv = 2 * ((2 * np.pi * mp_values * m_e * k * T) / (h_bar ** 2)) ** (3 / 2)
+Nv = 2 * ((2 * np.pi * mp_values * m_e * k * T) / (q*h ** 2)) ** (3 / 2)
 
 # Convert from m^-3 to cm^-3
-Nv = Nv * 1e19  # Convert Nv to cm^-3 for the final values
+Nv = Nv * 1e-6  # Convert Nv to cm^-3 for the final values
 
 # Plot Nv vs mp
 plt.figure(figsize=(10, 6))
 plt.plot(mp_values, Nv, color='b', label=r'$N_v$ at $T=300K$')
 plt.xlabel("Effective Mass of Holes $m_p^* / m_e$")
-plt.ylabel("Effective Density of States $N_v$ (cm⁻³)")
+plt.ylabel("Effective DoS $N_v$ (cm⁻³)")
 plt.title("Effective Density of States $N_v$ vs Effective Mass of Holes $m_p^*$ at T = 300K")
 plt.legend()
 plt.grid(True)
