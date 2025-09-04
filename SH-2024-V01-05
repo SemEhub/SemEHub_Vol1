@@ -30,10 +30,10 @@ fig = plt.figure(figsize=(12, 8))
 ax = fig.add_subplot(111, projection='3d')
 
 # Plot surface
-surf = ax.plot_surface(T, m_n, Nv, cmap='viridis', edgecolor='none')
+surf = ax.plot_surface(T, m_n, Nc, cmap='viridis', edgecolor='none')
 ax.set_xlabel("Temperature (K)")
 ax.set_ylabel("Effective Mass of Electrons $m_n^* / m_e$")
-ax.set_zlabel("Effective Density of States $N_c$ (cm⁻³)")
+ax.set_zlabel("Effective DoSs $N_c$ (cm⁻³)")
 ax.set_title("Effective Density of States $N_c$ vs Temperature and Effective Mass of Electrons")
 fig.colorbar(surf, ax=ax, label="$N_c$ (cm⁻³)", shrink=0.5, aspect=10)
 plt.show()
@@ -65,13 +65,10 @@ Nc = Nc * 1e19  # Convert Nv to cm^-3 for the final values
 
 # Plot Nv vs mp
 plt.figure(figsize=(10, 6))
-plt.plot(mn_values, Nc, color='b', label=r'$N_v$ at $T=300K$')
+plt.plot(mn_values, Nc, color='b', label=r'$N_c$ at $T=300K$')
 plt.xlabel("Effective Mass of Electrons $m_n^* / m_e$")
-plt.ylabel("Effective Density of States $N_v$ (cm⁻³)")
-plt.title("Effective Density of States $N_v$ vs Effective Mass of Electrons $m_n^*$ at T = 300K")
+plt.ylabel("Effective Density of States $N_c$ (cm⁻³)")
+plt.title("Effective DoS $N_c$ vs Effective Mass of Electrons $m_n^*$ at T = 300K")
 plt.legend()
 plt.grid(True)
 plt.show()
-
-
-
