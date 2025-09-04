@@ -4,69 +4,74 @@
 #Affiliation: TSDL, Department of Electronics and Communication Engineering, Tezpur University
 #This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International   
 
-#In 3D
+#In 3D 
+
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # Import Axes3D module
+from mpl_toolkits.mplot3d import Axes3D
 
-#Constants
-h = 4.136e-15    #Planck constant (eV*s)
-k_B = 8.617e-5   #Boltzmann constant (eV/K)
+# Constants 
+k = 8.617e-5  # Boltzmann constant (eV/K)
+h = 4.135e-15  # Planck's constant in (eV*s)
+m_e = 9.109e-31  # Mass of an electron (kg)
 
-#Function to calculate carrier concentration
-def carrier_concentration(m_n, T):
-    return 2 * ((2 * np.pi * m_n * k_B * T) / h ** 2) ** (3 / 2)
+# Temperature and effective mass ranges
+T_values = np.linspace(200, 800, 100)  # Temperature range from 200 K to 800 K
+mn_values = np.linspace(0.5, 1.5, 100)  # Effective mass of holes (in units of electron mass)
+T, m_n = np.meshgrid(T_values, mn_values)
 
-#Range of effective masses and temperatures
-m_n_values = np.linspace(0.01, 1, 100)  
-T_values = np.linspace(100, 1000, 100)  
+# We use h-bar = h / (2 * pi) and apply correct scaling
+h_bar = h / (2 * np.pi)  # Reduced Planck's constant in eV*s
+Nc = 2 * ((2 * np.pi * m_n * m_e * k * T) / (h_bar ** 2)) ** (3 / 2)
+Nc = Nc * 1e19
 
-#Create meshgrid for m_n and T
-m_n_mesh, T_mesh = np.meshgrid(m_n_values, T_values)
+# Plotting the results
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
 
-#Calculate carrier concentration
-n_mesh = carrier_concentration(m_n_mesh, T_mesh)
-
-#Plot
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')  # Create a 3D subplot
-surf = ax.plot_surface(m_n_mesh, T_mesh, n_mesh, cmap='viridis', linewidth=0, antialiased=False)
-ax.set_xlabel('$m_n$')
-ax.set_ylabel('Temperature (K)')
-ax.set_zlabel('Carrier Conc ($n$)', labelpad=25)	
-ax.set_title('Carrier Concentration vs $m_n$ and Temperature')
-fig.colorbar(surf, shrink=0.5, aspect=5)
+# Plot surface
+surf = ax.plot_surface(T, m_n, Nv, cmap='viridis', edgecolor='none')
+ax.set_xlabel("Temperature (K)")
+ax.set_ylabel("Effective Mass of Electrons $m_n^* / m_e$")
+ax.set_zlabel("Effective Density of States $N_c$ (cm⁻³)")
+ax.set_title("Effective Density of States $N_c$ vs Temperature and Effective Mass of Electrons")
+fig.colorbar(surf, ax=ax, label="$N_c$ (cm⁻³)", shrink=0.5, aspect=10)
 plt.show()
 
-# Nc vs m_n (T=300K)
+#N_v vs m_p (T=300K) 
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-#Constants
-h =  4.136e-15    #Planck constant (eV*s)
-k_B = 8.617e-5   #Boltzmann constant (eV/K)
-#Function to calculate effective density of states in the conduction band
-def Nc(m_n, T):
-    return 2 * ((2 * np.pi * m_n * k_B * T) / h ** 2) ** (3 / 2)
+# Constants 
+k = 8.617e-5  # Boltzmann constant in eV/K
+h = 4.135e-15  # Planck's constant in eV·s
+m_e = 9.109e-31  # Mass of an electron in kg
 
-#Range of effective masses
-m_n_values = np.linspace(0.01, 1, 100)  # Effective mass range 
+# Set temperature to a constant value of 300K
+T = 300  # Temperature in Kelvin
 
-#Temperature (K)
-T = 300  
+# Define the range for effective mass of holes (in units of electron mass)
+mn_values = np.linspace(0.5, 1.5, 100)  # Effective mass of holes as a fraction of electron mass
 
-#Calculate Nc for each value of m_n
-Nc_values = Nc(m_n_values, T)
+# Calculate Nv using the given formula for each value of mp
+h_bar = h / (2 * np.pi)  # Reduced Planck's constant in eV·s
 
-#Plot Nc vs m_n
-plt.plot(m_n_values, Nc_values)
-plt.xlabel('Effective Mass of Electrons ($m_n$)')
-plt.ylabel('Effective Density of States ($N_c$)')
-plt.title('Effective Density of States in the Conduction Band vs Effective Mass of Electrons')
+# Effective density of states Nv in cm^-3
+Nc = 2 * ((2 * np.pi * mn_values * m_e * k * T) / (h_bar ** 2)) ** (3 / 2)
+
+# Convert from m^-3 to cm^-3
+Nc = Nc * 1e19  # Convert Nv to cm^-3 for the final values
+
+# Plot Nv vs mp
+plt.figure(figsize=(10, 6))
+plt.plot(mn_values, Nc, color='b', label=r'$N_v$ at $T=300K$')
+plt.xlabel("Effective Mass of Electrons $m_n^* / m_e$")
+plt.ylabel("Effective Density of States $N_v$ (cm⁻³)")
+plt.title("Effective Density of States $N_v$ vs Effective Mass of Electrons $m_n^*$ at T = 300K")
+plt.legend()
 plt.grid(True)
 plt.show()
-
 
 
 
