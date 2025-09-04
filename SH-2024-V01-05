@@ -56,7 +56,7 @@ T = 300  # Temperature in Kelvin
 # Define the range for effective mass of holes (in units of electron mass)
 mn_values = np.linspace(0.5, 1.0, 100)  # Effective mass of holes as a fraction of electron mass
 
-# Calculate Nv using the given formula for each value of mp
+# Calculate Nc using the given formula for each value of mp
 
 # Effective density of states Nv in cm^-3
 Nc = 2 * ((2 * np.pi * mn_values * m_e * k * T) /(q*h** 2)) ** (3 / 2)
