@@ -38,6 +38,7 @@ ax.set_title("Effective Density of States $N_c$ vs Temperature and Effective Mas
 fig.colorbar(surf, ax=ax, label="$N_c$ (cm⁻³)", shrink=0.5, aspect=10)
 plt.show()
 
+#In 2D
 #N_v vs m_p (T=300K)
 
 import numpy as np
